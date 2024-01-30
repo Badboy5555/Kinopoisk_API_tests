@@ -1,0 +1,6 @@
+*.md
+.git
+.cache
+venv/
+Kinopoisk_test_ptoject/allure-results
+Kinopoisk_test_ptoject/allure-reports
