@@ -1,7 +1,7 @@
 **POM testing. WebUI example**  
 
 This project implements Python WebUI autotest for https://www.kinopoisk.ru.  
-A tech stack: Python + Selenium + Pytest + Requests 
+A tech stack: Python + Selenium + Pytest + Requests + aiohttp
 
 # Links list:  
 - Autotests — [link](https://github.com/Badboy5555/Kinopoisk_API_tests/blob/main/tests/core_scenarios_test.py)
