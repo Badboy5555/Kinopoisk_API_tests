@@ -1,9 +1,11 @@
 from pages.base import BasePage
+from services.fle_manager import DownloadUtils
 from locators.locators import FilmPageLocators
 
 
 class FilmPage(BasePage):
     locators = FilmPageLocators()
+    downloader = DownloadUtils()
 
     def get_film_name(self) -> str:
         """ Возвращает название фильма """
@@ -19,15 +21,15 @@ class FilmPage(BasePage):
         values = self.elements_are_visible(self.locators.TABLE_VALUES)
         return {title.text: value.text for title, value in zip(titles, values)}
 
-    def save_film_poster(self, name: str) -> None:
+    def save_film_poster(self, film_name: str) -> None:
         """ Сохраняет обложку фолиьма в  файл в формате PNG по пути film_data/main_image """
         poster_image_src = self.element_is_visible(self.locators.FILM_POSTER_IMAGE).get_attribute('src')
-        self.save_image_as_png(poster_image_src, './film_data/main_image/', name)
+        self.downloader.save_images_as_png(poster_image_src, './film_data/main_image/', film_name)
 
     def save_film_info(self, name: str) -> None:
         """ Сохраняет информацию о фолиьме в  файл в формате JSON по пути film_data/info """
         film_info = self.get_film_about_info()
-        self.save_info_to_json(film_info, './film_data/info/', f'{name}_info')
+        self.downloader.save_info_to_json(film_info, './film_data/info/', f'{name}_info')
 
     def go_to_image_section_page(self) -> None:
         """ Переходит на страницу с изображениями """

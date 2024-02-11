@@ -1,10 +1,12 @@
 from selenium.common.exceptions import TimeoutException
 from pages.base import BasePage
+from services.fle_manager import DownloadUtils
 from locators.locators import ReviewsPageLocators
 
 
 class ReviewsPage(BasePage):
     locators = ReviewsPageLocators()
+    downloader = DownloadUtils()
 
     def save_reviews_to_json(self, name: str) -> None:
         """ Сохраняет рецинзии о фолиьме в файл в формате JSON по пути film_data/info """
@@ -47,4 +49,4 @@ class ReviewsPage(BasePage):
                     next_page_button[-2].click()
                 else:
                     break
-        self.save_info_to_json(all_reviews, './film_data/info/', f'{name}_reviews')
+        self.downloader.save_info_to_json(all_reviews, './film_data/info/', f'{name}_reviews')
