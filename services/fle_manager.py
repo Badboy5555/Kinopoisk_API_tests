@@ -48,8 +48,9 @@ class UploadUtils:
     async def __read_multimedia_data_from_local_storage(self, path_with_name_and_extension: str, key: str,
                                                         session: ClientSession, url: str, headers: dict) -> str:
         """ Считывает данные из файла и загружает, по указанному url """
-        with open(path_with_name_and_extension, 'rb') as file:
-            async with session.post(url=url, data={key: file}, headers=headers) as response:
+        async with aiofile.async_open(path_with_name_and_extension, 'rb') as file:
+            data = await file.read()
+            async with session.post(url=url, data={key: data}, headers=headers) as response:
                 result = await response.text()
                 return result
 
